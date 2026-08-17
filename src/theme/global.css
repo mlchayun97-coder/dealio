@@ -1,0 +1,238 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  color: #0d0d0d;
+  font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  direction: rtl;
+}
+
+body {
+  /* Mesh-gradient backdrop: the whole point of glassmorphism is frosted panels
+     revealing bold color underneath — a faint tint defeats it, the blur needs
+     real color to bend. Fixed so it doesn't scroll with page content. */
+  background-color: #efe9df;
+  background-image:
+    radial-gradient(at 10% 6%, rgba(232, 64, 42, 0.55) 0, transparent 46%),
+    radial-gradient(at 90% 4%, rgba(122, 42, 232, 0.48) 0, transparent 48%),
+    radial-gradient(at 95% 58%, rgba(42, 111, 232, 0.42) 0, transparent 46%),
+    radial-gradient(at 4% 62%, rgba(242, 201, 76, 0.55) 0, transparent 48%),
+    radial-gradient(at 45% 102%, rgba(42, 157, 106, 0.50) 0, transparent 55%),
+    radial-gradient(at 55% 40%, rgba(255, 255, 255, 0.6) 0, transparent 60%);
+  background-attachment: fixed;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Bold, slow-drifting blurred color orbs, layered under everything (z-index:-1)
+   to deepen the mesh backdrop without adding real DOM weight. Respects
+   prefers-reduced-motion via the blanket rule further down. */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+body::before {
+  top: -15%;
+  right: -15%;
+  width: 65vw;
+  height: 65vw;
+  max-width: 620px;
+  max-height: 620px;
+  background: radial-gradient(circle, rgba(232, 64, 42, 0.85), transparent 68%);
+  animation: driftA 26s ease-in-out infinite alternate;
+}
+body::after {
+  bottom: -18%;
+  left: -15%;
+  width: 68vw;
+  height: 68vw;
+  max-width: 640px;
+  max-height: 640px;
+  background: radial-gradient(circle, rgba(42, 111, 232, 0.75), transparent 68%);
+  animation: driftB 30s ease-in-out infinite alternate;
+}
+@keyframes driftA {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(-6%, 8%) scale(1.08);
+  }
+}
+@keyframes driftB {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(8%, -6%) scale(1.1);
+  }
+}
+
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+button:active {
+  transform: scale(0.97);
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: #e8402a30;
+  color: #0d0d0d;
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e8e5df;
+  border-radius: 2px;
+}
+:focus-visible {
+  outline: 2px solid #e8402a;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes dot {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 #e8402a00;
+  }
+  50% {
+    box-shadow: 0 0 18px #e8402a40;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* used by OnbStep for its forward/back slide transitions */
+@keyframes stepInFwd {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes stepInBack {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
